@@ -79,7 +79,7 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
         response = session.post(api_url, headers=headers, json=data, timeout=1800)
         mensagem_assistente = response.text
         
-    st.session_state.messages.append({'role': "assistent",
+    st.session_state.messages.append({"role": "assistent",
                                       "content": mensagem_assistente,
                                       "timestamp": datetime.now(brasil_timezone).strftime("%d/%m/%Y - %H:%M:%S"),
                                       "avatar": "img/logo_wezen.png"})
@@ -93,7 +93,7 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     # Extrai documentos da resposta da IA
     extrair_documentos(mensagem_assistente)
     
-    # Marca que a última mensagem foi exibida
+    # Marca que a última mensagem que foi exibida
     st.session_state["last_message_displayed"] = False
           
 # Exibe a última mensagem da IA e documentos para aprovação, se houver
@@ -114,8 +114,6 @@ if st.session_state.documentos:
 # Exibe o diálogo de confirmação de aprovação se um documento foi selecionado e o modal deve ser exibido
 if st.session_state["document_to_approve"]:
     confirm_approval(st.session_state["document_to_approve"])
-          
-           
-           
+                
         
 

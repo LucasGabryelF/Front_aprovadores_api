@@ -24,13 +24,11 @@ def confirm_approval(doc_num):
     
     if approve:
         st.session_state["document_to_approve"] = None
-         # Remove o documento do vetor de documentos
         if doc_num in st.session_state["documentos"]:
             st.session_state["documentos"].remove(doc_num)
         st.rerun()
     if reject:
         st.session_state["document_to_approve"] = None
-         # Remove o documento do vetor de documentos
         if doc_num in st.session_state["documentos"]:
             st.session_state["documentos"].remove(doc_num)
         st.rerun()

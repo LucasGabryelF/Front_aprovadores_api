@@ -1,8 +1,8 @@
 # READ DOCUMENT FRONT-END
 
-READ DOCUMENT FRONT-END
+APROVADORES FRONT-END
 
-Read Document Front-End é um projeto desenvolvido para ser uma interface equilibrada e simples que utiliza o Read_Document API para ler arquivos armazenados em uma base de dados e retornar informações baseadas nesses documentos. Através dessa API, realizamos análises detalhadas dos documentos para fornecer insights, retornar informaçoes sobre a leitura dos arquivos, apoiar no entendimento de processos e tomada de decisões informadas.
+Aprovadores Front-End é um projeto desenvolvido para ser uma interface equilibrada e simples que utiliza o Aprovadores API para ler informaçoes do SAP e retornar informações baseadas nos modelos de aprovação de documentos. Através dessa API, realizamos análises detalhadas dos documentos para fornecer a aprovação o negação de um pedido solicitado.
 
 ## 🚀 Começando
 
@@ -19,7 +19,7 @@ De que coisas você precisa para instalar o software e como instalá-lo?
 VS CODE
 Python
 Virtualenv
-Read Document API
+Aprovadores API
 
 ```
 
