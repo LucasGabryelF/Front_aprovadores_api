@@ -5,14 +5,6 @@ import pytz
 from datetime import datetime
 from funtions import *
 
-# Define o fuso horário para o Brasil (Brasília)
-brasil_timezone = pytz.timezone('America/Sao_Paulo')
-
-# Configuração do timeout para 1800 segundos
-timeout_seconds = 1800
-session = requests.Session()
-session.timeout = timeout_seconds
-
 st.set_page_config(
 
     page_title="Wezen AI",
@@ -28,6 +20,14 @@ st.set_page_config(
 
 with open ("./css/style.css") as f:
     st.markdown(f"<style>{f.read}</style>", unsafe_allow_html=True)
+
+# Define o fuso horário para o Brasil (Brasília)
+brasil_timezone = pytz.timezone('America/Sao_Paulo')
+
+# Configuração do timeout para 1800 segundos
+timeout_seconds = 1800
+session = requests.Session()
+session.timeout = timeout_seconds
 
 st.image("img/logo_wezen.png", width=120)
 st.title("Wezen AI")
@@ -45,8 +45,8 @@ if "documentos" not in st.session_state:
 if "document_to_approve" not in st.session_state:
     st.session_state["document_to_approve"] = None
     
-if "show_confirm_modal" not in st.session_state:
-    st.session_state["show_confirm_modal"] = False
+if "last_message_displayed" not in st.session_state:
+    st.session_state["last_message_displayed"] = False
 
 # Exibe as mensagens no chat
 for msg in st.session_state.messages:
@@ -63,7 +63,7 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     st.chat_message("user").write(f"{prompt} \n\n - "
                                   f"{datetime.now(brasil_timezone).strftime('%d/%m/%Y - %H:%M:%S')}")
     
-    api_url = "https://a724-131-196-77-253kkk.ngrok-free.app/wezen_ai"
+    api_url = "https://b8d3-186-219-145-36.ngrok-free.app/wezen_ai"
 
     headers = {
         'ngrok-skip-browser-warning': '69420',
@@ -92,22 +92,29 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
 
     # Extrai documentos da resposta da IA
     extrair_documentos(mensagem_assistente)
+    
+    # Marca que a última mensagem foi exibida
+    st.session_state["last_message_displayed"] = False
           
-if st.session_state.messages:
-    st.chat_message(st.session_state.messages[-1]["role"],avatar='img/logo_wezen.png').write(f"{st.session_state.messages[-1]['content']} \n\n - "
-                                                                 f"{datetime.now(brasil_timezone).strftime('%d/%m/%Y - %H:%M:%S')}")
-     
+# Exibe a última mensagem da IA e documentos para aprovação, se houver
+if st.session_state.messages and not st.session_state["last_message_displayed"]:
+    st.chat_message(st.session_state.messages[-1]["role"], avatar='img/logo_wezen.png').write(
+        f"{st.session_state.messages[-1]['content']} \n\n - {datetime.now(brasil_timezone).strftime('%d/%m/%Y - %H:%M:%S')}"
+    )
+    st.session_state["last_message_displayed"] = True
+    
 # Exibe documentos para aprovação
-if st.session_state.documentos:#["documentos"]:
+if st.session_state.documentos:
     st.subheader("Documentos")
     for doc_num in st.session_state["documentos"]:
         if st.button(f"Documento Nº {doc_num}"):
             st.session_state["document_to_approve"] = doc_num
+            st.rerun()
            
- # Exibe o diálogo de confirmação de aprovação se um documento foi selecionado e o modal deve ser exibido
+# Exibe o diálogo de confirmação de aprovação se um documento foi selecionado e o modal deve ser exibido
 if st.session_state["document_to_approve"]:
-    confirm_approval(doc_num)
-              
+    confirm_approval(st.session_state["document_to_approve"])
+          
            
            
         
