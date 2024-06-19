@@ -33,6 +33,9 @@ st.image("img/logo_wezen.png", width=120)
 st.title("Wezen AI")
 st.caption("🚀 Bem Vindo a Wezen AI, inteligencia artificial da Wezen 🚀")
 
+# Entrada do usuário
+usuario = "Lucas Freitas"
+
 if "aConversation" not in st.session_state:
     st.session_state["aConversation"] = []
 
@@ -63,7 +66,7 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     st.chat_message("user").write(f"{prompt} \n\n - "
                                   f"{datetime.now(brasil_timezone).strftime('%d/%m/%Y - %H:%M:%S')}")
     
-    api_url = "https://b8d3-186-219-145-36.ngrok-free.app/wezen_ai"
+    api_url = "https://0942-186-219-145-36.ngrok-free.app/wezen_ai"
 
     headers = {
         'ngrok-skip-browser-warning': '69420',
@@ -95,6 +98,10 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     
     # Marca que a última mensagem que foi exibida
     st.session_state["last_message_displayed"] = False
+    
+# Salva o usuário na sessão
+if usuario:
+    st.session_state["usuario"] = usuario
           
 # Exibe a última mensagem da IA e documentos para aprovação, se houver
 if st.session_state.messages and not st.session_state["last_message_displayed"]:
@@ -113,7 +120,7 @@ if st.session_state.documentos:
            
 # Exibe o diálogo de confirmação de aprovação se um documento foi selecionado e o modal deve ser exibido
 if st.session_state["document_to_approve"]:
-    confirm_approval(st.session_state["document_to_approve"])
+    confirm_approval(st.session_state["document_to_approve"], st.session_state["usuario"])
                 
         
 
