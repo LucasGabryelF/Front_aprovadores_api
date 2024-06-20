@@ -7,7 +7,7 @@ import re
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
-api_url = os.getenv("UrlOdata")
+api_url = os.getenv("api_url")
 
 headers = {
     'ngrok-skip-browser-warning': '69420',
