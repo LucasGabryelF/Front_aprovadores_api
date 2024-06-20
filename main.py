@@ -2,8 +2,14 @@ import requests
 import json
 import streamlit as st
 import pytz
+import dotenv
+import os 
 from datetime import datetime
 from funtions import *
+
+dotenv.load_dotenv(dotenv.find_dotenv())
+
+api_url = os.getenv("UrlOdata")
 
 st.set_page_config(
 

@@ -1,9 +1,14 @@
 import streamlit as st
+import dotenv
+import os
 import requests
 import json
 import re
 
-api_url = "https://77b1-179-191-86-210.ngrok-free.app/wezen_ai"
+dotenv.load_dotenv(dotenv.find_dotenv())
+
+api_url = os.getenv("UrlOdata")
+
 headers = {
     'ngrok-skip-browser-warning': '69420',
     'Content-Type': 'application/json',
