@@ -24,9 +24,6 @@ st.set_page_config(
     }
 )
 
-with open ("./css/style.css") as f:
-    st.markdown(f"<style>{f.read}</style>", unsafe_allow_html=True)
-
 # Define o fuso horário para o Brasil (Brasília)
 brasil_timezone = pytz.timezone('America/Sao_Paulo')
 
