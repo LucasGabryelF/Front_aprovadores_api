@@ -68,8 +68,6 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     ##Exibe a mensagem do usuário na interface do usuário usando o componente
     st.chat_message("user").write(f"{prompt} \n\n - "
                                   f"{datetime.now(brasil_timezone).strftime('%d/%m/%Y - %H:%M:%S')}")
-    
-    api_url = "https://77b1-179-191-86-210.ngrok-free.app/wezen_ai"
 
     headers = {
         'ngrok-skip-browser-warning': '69420',
