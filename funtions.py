@@ -2,7 +2,6 @@ import streamlit as st
 import dotenv
 import os
 import requests
-import json
 import re
 
 dotenv.load_dotenv(dotenv.find_dotenv())
