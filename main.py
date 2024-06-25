@@ -9,7 +9,7 @@ from funtions import *
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
-api_url = os.getenv("api_url")
+api_url = os.getenv("api_url_key")
 
 st.set_page_config(
 
