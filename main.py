@@ -53,6 +53,9 @@ if "document_to_approve" not in st.session_state:
     
 if "last_message_displayed" not in st.session_state:
     st.session_state["last_message_displayed"] = False
+    
+if "show_confirm_dialog" not in st.session_state:
+    st.session_state["show_confirm_dialog"] = False
 
 # Exibe as mensagens no chat
 for msg in st.session_state.messages:
@@ -98,6 +101,7 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     extrair_documentos(mensagem_assistente)
     
     # Marca que a última mensagem que foi exibida
+    
     st.session_state["last_message_displayed"] = False
     
 # Salva o usuário na sessão
@@ -117,11 +121,9 @@ if st.session_state.documentos:
     for doc_num in st.session_state["documentos"]:
         if st.button(f"Documento Nº {doc_num}"):
             st.session_state["document_to_approve"] = doc_num
-            st.rerun()
            
 # Exibe o diálogo de confirmação de aprovação se um documento foi selecionado e o modal deve ser exibido
 if st.session_state["document_to_approve"]:
-    confirm_approval(st.session_state["document_to_approve"], st.session_state["usuario"])
-                
+    confirm_approval(st.session_state["document_to_approve"], st.session_state["usuario"])          
         
 

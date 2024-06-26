@@ -29,7 +29,8 @@ def confirm_approval(doc_num, aprovador):
 
     if "action_taken" not in st.session_state:
         st.session_state.action_taken = False
-    
+        st.session_state.response_message = ""
+
     if not st.session_state.action_taken:
         col1, col2, _ = st.columns([1, 1, 3])
         
@@ -53,19 +54,21 @@ def confirm_approval(doc_num, aprovador):
                 if response.status_code == 200:
                     response_data = response.json()
                     if isinstance(response_data, list) and len(response_data) > 0 and 'MSG' in response_data[0]:
-                        st.success(f"{response_data[0]['MSG']}")
+                        st.session_state.response_message = response_data[0]['MSG']
+                        st.success(st.session_state.response_message)
                 else:
                     st.error("Erro na operação!")
             
             st.session_state.action_taken = True
+            st.rerun()
             
     else:
-        st.success("Ação já realizada.")
-        
-    
+        st.success(st.session_state.response_message)
+
     if st.session_state.action_taken:
         if st.button("Fechar"):
             st.session_state.action_taken = False
+            st.session_state.response_message = ""
             st.session_state["document_to_approve"] = None
             if "documentos" in st.session_state and doc_num in st.session_state["documentos"]:
                 st.session_state["documentos"].remove(doc_num)
