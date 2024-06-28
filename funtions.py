@@ -15,11 +15,15 @@ headers = {
 
 # Função para extrair documentos da resposta da IA
 def extrair_documentos(resposta):
-    pattern = r'\b45000\d+\b'
-    documentos = re.findall(pattern, resposta)
-    for doc in documentos:
-        if doc not in st.session_state["documentos"]:
-            st.session_state["documentos"].append(doc)
+    
+    pattern = r'\*\*(?:Documento|Número do Documento):\*\* (\d+)(?:.*?Status:\*\* (\w+))?'
+    matches = re.findall(pattern, resposta, re.DOTALL)
+
+    for match in matches:
+        doc, status = match
+        if not status or status.lower() not in ["aprovado", "rejeitado"]:
+            if doc not in st.session_state["documentos"]:
+                st.session_state["documentos"].append(doc)
 
 @st.experimental_dialog("Documentos")
 def confirm_approval(doc_num, aprovador):
@@ -73,5 +77,3 @@ def confirm_approval(doc_num, aprovador):
             if "documentos" in st.session_state and doc_num in st.session_state["documentos"]:
                 st.session_state["documentos"].remove(doc_num)
             st.rerun()
-
-    

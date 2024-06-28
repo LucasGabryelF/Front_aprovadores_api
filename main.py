@@ -82,7 +82,7 @@ if prompt := st.chat_input("Como posso ajudá-lo ?"):
     with st.spinner('Aguardando resposta...'):
         response = session.post(api_url, headers=headers, json=data, timeout=1800)
         mensagem_assistente = response.text
-        
+    
     st.session_state.messages.append({"role": "assistent",
                                       "content": mensagem_assistente,
                                       "timestamp": datetime.now(brasil_timezone).strftime("%d/%m/%Y - %H:%M:%S"),
